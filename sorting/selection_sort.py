@@ -1,7 +1,9 @@
 # selection sorting 
 # select the smallest element from an unsorted list in each iteration.
 # place the smallest element at the begining of the unsorted list.
-
+# Complexity
+    # Best O(n*log*n)
+    # space complexity - O(n) 
 """ Pseudocode
 1. compare minimum with second element.
 2. If the second element is smaller than first element, assign second element as minimum
@@ -18,6 +20,7 @@ def select(seq: list, start: int)-> int:
     return min_index
 
 def selection_sorting(seq: list)->list:
+
     for i in range(len(seq)-1):
         min_index = select(seq, i)
         tmp_idx = seq[i]

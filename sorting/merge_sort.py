@@ -37,7 +37,7 @@ def merge(seq, start, mid, stop):
         seq[start + i] = tmp_list[i]
 
 def merge_sort_recursively(seq, start, stop):
-    #
+    
     if start >= stop - 1:
         return
     mid = (start + stop) // 2
