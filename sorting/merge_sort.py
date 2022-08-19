@@ -41,7 +41,6 @@ def merge_sort_recursively(seq, start, stop):
     if start >= stop - 1:
         return
     mid = (start + stop) // 2
-
     merge_sort_recursively(seq, start, mid)
     merge_sort_recursively(seq, mid, stop)
     merge(seq, start, mid, stop)
@@ -49,6 +48,7 @@ def merge_sort_recursively(seq, start, stop):
 
 def merge_sort(seq):
     return merge_sort_recursively(seq, 0, len(seq))
+
 
 
 seq = [5,8,2,6,9,1,0,7]

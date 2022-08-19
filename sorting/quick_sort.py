@@ -8,12 +8,35 @@
 import random
 
 def partition(seq, start, stop):
-    start = None
-    stop = None
+    pivot = seq[stop]
+    
+    i = start - 1
+    
+    for j in range(start, stop):
+        if seq[j] <= pivot:
+            i = i + 1
+            seq[i], seq[j] = seq[j], seq[i]
+    seq[i + 1], seq[stop] = seq[stop], seq[i]
+
+    return i + 1
+
+
+def quick_sort_recursively(seq, start, stop):
+    if start < stop:
+        pivot = partition(seq, start, stop)
+        print(pivot)
+        quick_sort_recursively(seq, start, pivot - 1)
+        quick_sort_recursively(seq, pivot +1, stop)
+    return seq
+def quick_sort(seq):
+    start = 0
+    stop = len(seq)
+    quick_sort_recursively(seq, start, stop-1)
     return seq
 
-def quick_sort(seq):
-    return seq
+
+
+
 
 
 seq = [5,8,2,6,9,1,0,7]
