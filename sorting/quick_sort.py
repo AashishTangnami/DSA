@@ -4,7 +4,8 @@
 # all the smaller elements are indexed before pivot and greater elements are indexed after pivot element.
 # left and right elements are again divided with the same pivot approach.
 # with sorted sub-arrays, combining them all again and create a sorted array with quick sort algorithm.
-
+# complexity
+    # O(n*log n) -> when pivot element is near to the middle.
 import random
 
 def partition(seq, start, stop):
@@ -33,11 +34,6 @@ def quick_sort(seq):
     stop = len(seq)
     quick_sort_recursively(seq, start, stop-1)
     return seq
-
-
-
-
-
 
 seq = [5,8,2,6,9,1,0,7]
 print(f'Before Selection sorting: {seq}')
