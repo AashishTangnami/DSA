@@ -18,7 +18,6 @@ def partition(seq, start, stop):
             i = i + 1
             seq[i], seq[j] = seq[j], seq[i]
     seq[i + 1], seq[stop] = seq[stop], seq[i]
-
     return i + 1
 
 
