@@ -1,3 +1,5 @@
+# linked list 
+
 class LinkedList:
     class __Node:
         def __init__(self, item, next=None):
