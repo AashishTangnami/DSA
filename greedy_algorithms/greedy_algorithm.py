@@ -4,4 +4,6 @@
 
 # The algorithm can be used with any problem if it has following properties:
 # 1. Greedy Choice Property
+    # 
 # 2. Optimal Substructure
+    
