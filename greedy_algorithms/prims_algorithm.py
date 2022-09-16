@@ -23,7 +23,7 @@ while (no_edge < V - 1):
                         minimum = G[i][j]
                         x = i
                         y = j
-    print(str(x) + '-' + str(y) + ':' + str(G[x][y]))
+    print(f'{str(x)} - {str(y)} : {str(G[x][y])}')
     selected[y] = True
     no_edge += 1
 
