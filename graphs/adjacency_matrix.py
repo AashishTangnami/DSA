@@ -1,3 +1,5 @@
+# Adjacency matrix - Representing a graph as a matrix of booleans(0's and 1's)
+
 class Graph(object):
 
     def __init__(self, size):
