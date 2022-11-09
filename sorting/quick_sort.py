@@ -17,7 +17,7 @@ def partition(seq, start, stop):
         if seq[j] <= pivot:
             i = i + 1
             seq[i], seq[j] = seq[j], seq[i]
-    seq[i + 1], seq[stop] = seq[stop], seq[i]
+    seq[i + 1], seq[stop] = seq[stop], seq[i+1]
     return i + 1
 
 
