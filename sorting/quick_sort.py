@@ -10,7 +10,6 @@ import random
 
 def partition(seq, start, stop):
     pivot = seq[stop]
-    
     i = start - 1
     
     for j in range(start, stop):
@@ -24,10 +23,10 @@ def partition(seq, start, stop):
 def quick_sort_recursively(seq, start, stop):
     if start < stop:
         pivot = partition(seq, start, stop)
-        print(pivot)
         quick_sort_recursively(seq, start, pivot - 1)
         quick_sort_recursively(seq, pivot +1, stop)
     return seq
+    
 def quick_sort(seq):
     start = 0
     stop = len(seq)
