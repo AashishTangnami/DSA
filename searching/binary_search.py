@@ -1,6 +1,6 @@
-from typing import List
 
-def binary_search_iterative(arr: List[int], x: int) -> int:
+
+def binary_search_iterative(arr: list[int], x: int) -> int:
     """
     Performs binary search iteratively to find the index of x in arr.
     Returns -1 if x is not found in arr.
@@ -16,12 +16,12 @@ def binary_search_iterative(arr: List[int], x: int) -> int:
             high = mid - 1
     return -1 # if the target is not found, return -1
 
-def binary_search_recursive(arr: List[int], x: int) -> int:
+def binary_search_recursive(arr: list[int], x: int) -> int:
     """
     Performs binary search recursively to find the index of x in arr.
     Returns -1 if x is not found in arr.
     """
-    def binary_search_helper(arr: List[int], x: int, low: int, high: int) -> int:
+    def binary_search_helper(arr: list[int], x: int, low: int, high: int) -> int:
         if high >= low:
             mid = (low + high) // 2 # find the middle index of the array
             if arr[mid] == x: # if the middle element is the target, return its index

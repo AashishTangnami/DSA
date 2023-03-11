@@ -2,37 +2,73 @@
 
 
 class Graph:
+    """
+    A class to represent a weighted graph with V vertices.
+    """
 
-    def __init__(self, vertices):
-        self.V = vertices   # Total number of vertices in the graph
-        self.graph = []     # Array of edges
+    def __init__(self, vertices: int) -> None:
+        """
+        Initializes the Graph class.
 
-    # Add edges
-    def add_edge(self, s, d, w):
+        Args:
+        - vertices (int): Total number of vertices in the graph.
+        """
+        self.V = vertices
+        self.graph: list[list[int]] = []
+
+    def add_edge(self, s: int, d: int, w: int) -> None:
+        """
+        Adds an edge to the graph.
+
+        Args:
+        - s (int): Source vertex.
+        - d (int): Destination vertex.
+        - w (int): Weight of the edge.
+        """
         self.graph.append([s, d, w])
 
-    # Print the solution
-    def print_solution(self, dist):
+    def print_solution(self, dist: list[int]) -> None:
+        """
+        Prints the distance of each vertex from the source vertex.
+
+        Args:
+        - dist (List[int]): List of distances from the source vertex to each vertex.
+        """
         print("Vertex Distance from Source")
         for i in range(self.V):
             print("{0}\t\t{1}".format(i, dist[i]))
 
-    def bellman_ford(self, src):
+    def bellman_ford(self, src: int) -> None:
+        """
+        Finds the shortest distance from the source vertex to all other vertices using the Bellman-Ford algorithm.
 
-        # Step 1: fill the distance array and predecessor array
-        dist = [float("Inf")] * self.V
+        Args:
+        - src (int): Source vertex.
+
+        Returns:
+        - None
+        """
+        # Step 1: Fill the distance array and predecessor array
+        dist: list[int] = [float("Inf")] * self.V
         # Mark the source vertex
         dist[src] = 0
 
-        # Step 2: relax edges |V| - 1 times
-        for _ in range(self.V - 1):
+        # Step 2: Relax edges V-1 times
+        for i in range(self.V - 1):
+            # Keep track of whether any distance was updated or not
+            changed: bool = False
             for s, d, w in self.graph:
+                # If we have found a shorter path to destination vertex
+                # via current source vertex, update the distance
                 if dist[s] != float("Inf") and dist[s] + w < dist[d]:
                     dist[d] = dist[s] + w
+                    changed = True
+            # If no distance was updated in the previous iteration,
+            # we can stop early as we have already found the shortest path
+            if not changed:
+                break
 
-        # Step 3: detect negative cycle
-        # if value changes then we have a negative cycle in the graph
-        # and we cannot find the shortest distances
+        # Step 3: Detect negative cycle
         for s, d, w in self.graph:
             if dist[s] != float("Inf") and dist[s] + w < dist[d]:
                 print("Graph contains negative weight cycle")
