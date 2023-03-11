@@ -1,56 +1,52 @@
-# Binary search algorithm is for searching an element's position in a sorted list/array.
-# Binary search algorithm is implemented only in sorted array/list.
+from typing import List
 
-# Binary search algorithm implemented in two ways.
-    # Iterative Method 
-    # Recursive Method - divide and conquer approach
-
-# Pseudocode
-    # Set two high and low pointers as last and first element respectively.
-    # Find the mid element of the list.
-    # If the x(input) == mid then return mid, else compare again.
-    # if the x > mid, compare elements between mid and high in the array.
-    # repeat until low meets high.
-
-# Itereative Method.
-def binary_search_iterative(arr, x, low, high):
+def binary_search_iterative(arr: List[int], x: int) -> int:
+    """
+    Performs binary search iteratively to find the index of x in arr.
+    Returns -1 if x is not found in arr.
+    """
+    low, high = 0, len(arr) - 1 # initialize the indices of the lowest and highest elements in the array
     while low <= high:
-        mid = low + (high-low)//2
-        if arr[mid] == x:
+        mid = (low + high) // 2 # find the middle index of the array
+        if arr[mid] == x: # if the middle element is the target, return its index
             return mid
-        elif arr[mid] < x:
+        elif arr[mid] < x: # if the middle element is less than the target, search the right half of the array
             low = mid + 1
-        else:
+        else: # if the middle element is greater than the target, search the left half of the array
             high = mid - 1
-    return -1
+    return -1 # if the target is not found, return -1
 
-# recursive method.
-def binary_search_recursively(arr, x , low, high):
-    if high >= low:
-        mid = low + (high - low)//2
-        if arr[mid] == x:
-            return mid
-        elif arr[mid] > x:
-            return binary_search_recursively(arr, x , low, mid-1)
+def binary_search_recursive(arr: List[int], x: int) -> int:
+    """
+    Performs binary search recursively to find the index of x in arr.
+    Returns -1 if x is not found in arr.
+    """
+    def binary_search_helper(arr: List[int], x: int, low: int, high: int) -> int:
+        if high >= low:
+            mid = (low + high) // 2 # find the middle index of the array
+            if arr[mid] == x: # if the middle element is the target, return its index
+                return mid
+            elif arr[mid] > x: # if the middle element is greater than the target, search the left half of the array
+                return binary_search_helper(arr, x, low, mid - 1)
+            else: # if the middle element is less than the target, search the right half of the array
+                return binary_search_helper(arr, x, mid + 1, high)
         else:
-            return binary_search_recursively(arr, x, mid+1, high)
-    else:
-        return -1
+            return -1 # if the target is not found, return -1
+    return binary_search_helper(arr, x, 0, len(arr) - 1)
 
-def main(index_value, str):
-    print(str)
+def main(index_value: int, x: int, method: str) -> None:
+    """
+    Prints the result of the binary search for a given index_value, input value x, and method.
+    """
     if index_value != -1:
-        print(f'Position of the input value x : {x} is at : {index_value}')
+        print(f"Position of the input value x: {x} is at: {index_value} using {method}")
     else:
-        print(f'Position of the input value x : {x} is not found')
+        print(f"Position of the input value x: {x} is not found using {method}")
 
-
-arr = [5,8,2,6,9,1,0,7]
-sorted_arr = sorted(arr)
+arr = [5, 8, 2, 6, 9, 1, 0, 7]
+sorted_arr = sorted(arr) # sort the array to apply binary search
 x = 6
-low = sorted_arr[0]
-high = sorted_arr[-1]
-index_value1 = binary_search_iterative(sorted_arr, x, low, high)
-index_value2 = binary_search_recursively(sorted_arr, x , low, high)
-main(index_value1, 'Binary Search iterative method')
-main(index_value2, 'Binary Search recursive method')
+index_value1 = binary_search_iterative(sorted_arr, x)
+index_value2 = binary_search_recursive(sorted_arr, x)
+main(index_value1, x, "binary search iterative")
+main(index_value2, x, "binary search recursive")
