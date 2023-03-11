@@ -1,32 +1,35 @@
-# linked list
-# complexity
+from typing import Optional
+
 class Node:
-    def __init__(self, val):
+    def __init__(self, val: int) -> None:
         self.val = val
         self.next = None
 
 class LinkedList:
-    def __init__(self):
-        self.head = None
+    def __init__(self) -> None:
+        self.head: Optional[Node] = None
     
-    # insert at the begining
-    def insert_at_begining(self, new_val):
+    # insert at the beginning
+    # Time complexity: O(1)
+    def insert_at_begining(self, new_val: int) -> None:
         new_node = Node(new_val)
 
         new_node.next = self.head
         self.head = new_node
 
     # insert after a node
-    def insert_after(self, prev_node, new_val):
+    # Time complexity: O(1) if prev_node is given, O(n) otherwise
+    def insert_after(self, prev_node: Node, new_val: int) -> None:
         if prev_node is None:
-            return 'No value'
+            return
         
         new_node = Node(new_val)
         new_node.next = prev_node.next
         prev_node.next = new_node
 
     # insert at the end.
-    def insert_at_end(self, new_val):
+    # Time complexity: O(n)
+    def insert_at_end(self, new_val: int) -> None:
         new_node = Node(new_val)
         if self.head is None:
             self.head = new_node
@@ -38,7 +41,8 @@ class LinkedList:
         last.next = new_node
 
     # delete a node
-    def delete_node(self, idx):
+    # Time complexity: O(n)
+    def delete_node(self, idx: int) -> None:
         if self.head is None:
             return
         tmp_head = self.head
@@ -49,12 +53,11 @@ class LinkedList:
             return
         
         # find the key to be deleted.
-
         for _ in range(idx - 1):
             tmp_head = tmp_head.next
             if tmp_head is None:
                 break
-        # 
+        
         if tmp_head is None:
             return
         if tmp_head.next is None:
@@ -64,7 +67,9 @@ class LinkedList:
         tmp_head.next = None
         tmp_head.next = next
     
-    def search(self, key):
+    # search for a node with the given key
+    # Time complexity: O(n)
+    def search(self, key: int) -> bool:
         current = self.head
         while current is not None:
             if current.val == key:
@@ -72,7 +77,9 @@ class LinkedList:
             current = current.next
         return False
     
-    def sort_linked_list(self, head):
+    # sort the linked list in ascending order
+    # Time complexity: O(n^2)
+    def sort_linked_list(self, head: Optional[Node]) -> None:
         current = head
         index = Node(None)
         if head is None:
@@ -86,7 +93,8 @@ class LinkedList:
                     index = index.next
                 current = current.next
     
-    def print_list(self):
+    # print the linked list
+    def print_list(self) -> None:
         tmp = self.head
         while(tmp):
             print(str(tmp.val) + " ", end="")
@@ -109,11 +117,3 @@ if __name__ == '__main__':
 
     print()
     item_to_find = 3
-    if llist.search(item_to_find):
-        print(str(item_to_find) + " is found")
-    else:
-        print(str(item_to_find) + " is not found")
-
-    llist.sort_linked_list(llist.head)
-    print("Sorted List: ")
-    llist.print_list() 
