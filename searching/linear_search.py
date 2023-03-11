@@ -1,6 +1,5 @@
-from typing import List
 
-def linear_search(arr: List[int], n: int, x: int) -> int:
+def linear_search(arr: list[int], n: int, x: int) -> int:
     """
     Perform linear search to find the index of x in arr.
 
