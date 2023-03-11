@@ -1,22 +1,36 @@
-# Linear search algorithm is a sequential searching algorithm.
-# Start from the first element, compare k(input_value) with each element x in the existing array/list.
-# If k == x, then return the index.
-# else not found.
-# complexity - O(n) -> directly proportional to the size of the array/list.
+from typing import List
 
+def linear_search(arr: List[int], n: int, x: int) -> int:
+    """
+    Perform linear search to find the index of x in arr.
 
-def linear_search(arr, n, x):
+    Args:
+        arr: A list of integers to be searched.
+        n: An integer, the size of the list arr.
+        x: An integer, the value to be searched for.
+
+    Returns:
+        An integer, the index of x in arr, or -1 if x is not found.
+    """
+    # Loop through the list and check each element for a match with x
     for i in range(0, n):
-        if(arr[i] == x):
+        if arr[i] == x:
+            # If a match is found, return the index
             return i
+    
+    # If no match is found, return -1
     return -1
 
-arr = [5,8,2,6,9,1,0,7]
+# Example usage
+arr = [5, 8, 2, 6, 9, 1, 0, 7]
 x = 0
 n = len(arr)
 
-sorted_arr = linear_search(arr, n ,x)
-if(sorted_arr == -1):
-    print(f'The element {x} is not in the arr')
+# Perform linear search to find the index of x in arr
+idx = linear_search(arr, n, x)
+
+# Check the result and print a message accordingly
+if idx == -1:
+    print(f"The element {x} is not in the arr")
 else:
-    print(f'Element is at index: {sorted_arr}')
+    print(f"Element {x} is at index {idx}")
