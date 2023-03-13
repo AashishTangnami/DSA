@@ -37,6 +37,7 @@ edges = [[0, 0, 1, 2, 0, 0, 0],
          [0, 0, 3, 0, 0, 2, 0],
          [0, 3, 0, 0, 2, 0, 1],
          [0, 0, 0, 1, 0, 1, 0]]
+
 num_of_vertices = len(vertices[0])
 def to_be_visited():
     global visited_and_distance
