@@ -1,71 +1,60 @@
-# Technique of compressing data to reduce its size without losing any of the detail information is called Huffman coding.
-# If there is frequent occurance of characters then Huffman coding is used to compress the data.
-
-# Huffman coding first creates a tree using the frequencies of the character and then generates code for each character.
-# Encoding the characters in one tree then decoding is also done using same tree.
-
-# Pseudocode.
-    # 1. Calculate the frequency of each character in the string.
-    # 2. Sort the characters in increasing order of the frequency.
-    # - Characters are stored in a priority queue Q.
-    # 3. Make each unique character as a leaf node.
-    # 4. Create and empty node (Z).
-        # - Assign the minimum frequency to the left child of z and assign the second minimum frequency to the right child of Z.
-        # - Set the value of the Z as the sum of the above two minimum frequencies.
-    # 5. Remove these two minimum frequencies from Q and add the sum into the list of frequencies
-    # 6. Insert node Z to the tree.
-    # 7. Repeat steps 3 to 5 for all the characters.
-    # 8. For each non-leaf node, assign 0 to the left edge and 1 to the right edge.
-
-
-string = 'BDABCADIACADKA'
-class NodeTree(object):
-    def __init__(self, left = None, right = None):
+# Define the NodeTree class to represent nodes in the Huffman tree
+class NodeTree:
+    def __init__(self, left: 'NodeTree', right: 'NodeTree') -> None:
         self.left = left
         self.right = right
     
-    def children(self):
+    def children(self) -> tuple['NodeTree', 'NodeTree']:
         return (self.left, self.right)
     
-    def nodes(self):
+    def nodes(self) -> tuple['NodeTree', 'NodeTree']:
         return (self.left, self.right)
     
     def __str__(self) -> str:
-        return '%s_%s' % (self.left, self.right)
+        return f"{self.left}_{self.right}"
 
-def huffman_code_tree(nodes, left = True, emt_string=''):
-    if type(nodes) is str:
+# Define the huffman_code_tree function to generate the Huffman codes for each character in the input tree
+def huffman_code_tree(nodes : NodeTree , left: bool = True, emt_string: str = '') -> dict[str, str]:
+    if isinstance(nodes, str):
         return {nodes: emt_string}
-    (l, r) = nodes.children()
-    tmp_dict = dict()
-    tmp_dict.update(huffman_code_tree(l, True, emt_string + '0'))
-    tmp_dict.update(huffman_code_tree(r, False, emt_string + '1'))
-    return tmp_dict
+    left_child, right_child = nodes.children()
+    # Recursively generate the Huffman code for each child node, appending '0' for the left child and '1' for the right child
+    left_code = huffman_code_tree(left_child, True, emt_string + '0')
+    right_code = huffman_code_tree(right_child, False, emt_string + '1')
+    # Merge the dictionaries for the left and right child nodes and return the result
+    return {**left_code, **right_code}
 
-freq = {}
-for c in string:
-    if c in freq:
-        freq[c] += 1
-    else:
-        freq[c] = 1
+# Define the input string and create a frequency dictionary for each character in the string
+input_string = 'BDABCADIACADKA'
+freq: dict[str, int] = {}
+for c in input_string:
+    freq[c] = freq.get(c, 0) + 1
     
-freq = sorted(freq.items(), key = lambda x:x[1], reverse= True)
-nodes = freq
+# Sort the frequency dictionary in decreasing order of frequency
+freq_sorted: list[tuple[str, int]] = sorted(freq.items(), key=lambda x: x[1], reverse=True)
 
+# Create a list of nodes for each character in the frequency dictionary
+nodes: list[tuple['NodeTree', int]] = [(key, count) for key, count in freq_sorted]
+
+# Merge the nodes until a single tree is formed
 while len(nodes) > 1:
-    (key1, c1) = nodes[-1]
-    (key2, c2) = nodes[-2]
-    nodes = nodes[:-2]
-    node = NodeTree(key1, key2)
-    nodes.append((node, c1 + c2))
+    # Get the two nodes with the lowest frequency and remove them from the list
+    key1, count1 = nodes.pop()
+    key2, count2 = nodes.pop()
+    # Create a new node with the two nodes as children and add it to the list of nodes
+    new_node = NodeTree(key1, key2)
+    nodes.append((new_node, count1 + count2))
+    # Sort the list of nodes in decreasing order of frequency
+    nodes.sort(key=lambda x: x[1], reverse=True)
 
-    nodes = sorted(nodes, key=lambda x: x[1], reverse=True)
+# Generate the Huffman code for each character in the original frequency dictionary using the Huffman tree
+huffman_codes = huffman_code_tree(nodes[0][0])
 
-huffman_code_tree = huffman_code_tree(nodes[0][0])
+# Print the Huffman code for each character in the original frequency dictionary
 print(' Char | Huffman code ')
 print('----------------------')
-for (char, frequency) in freq:
-    print(' %-4r | %12s' % (char, huffman_code_tree[char]))
-
+for char, frequency in freq_sorted:
+    code = huffman_codes[char]
+    print(f" {char:<4} | {code:>12}")
 
 
