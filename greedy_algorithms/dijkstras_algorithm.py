@@ -30,6 +30,7 @@ def to_be_visited() -> int:
 
 
 # Initialize visited_and_distance as a list of lists containing 2 integers each
+# Add the remaining vertices to visited_and_distance, with the tentative distance
 visited_and_distance: list[list[int]] = [[0, 0]]
 for i in range(num_of_vertices - 1):
     visited_and_distance.append([0, sys.maxsize])
